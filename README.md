@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/cargo-casper)](https://crates.io/crates/cargo-casper)
 [![License](https://img.shields.io/badge/license-Apache-blue)](LICENSE)
 
-A command line tool for creating a Wasm smart contract and tests for use on the Casper network.
+A command line tool for creating and testing a Casper Wasm contract.
 
 ---
 

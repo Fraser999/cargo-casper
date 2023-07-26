@@ -41,7 +41,7 @@ jobs:
           BRANCH_SELECTOR: ${{ matrix.branch }}
         with:
           command: --locked
-          args: test
+          args: test --workspace
 
       - name: Update
         uses: actions-rs/cargo@v1
@@ -51,7 +51,7 @@ jobs:
       - name: Build Updated
         uses: actions-rs/cargo@v1
         with:
-          command: build
+          command: build --workspace
 
       - name: Slack Notification
         uses: ravsamhq/notify-slack-action@v1

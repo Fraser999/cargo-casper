@@ -1,0 +1,18 @@
+[package]
+name = "cargo-casper-lib"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+description = "A library to support creating and testing a Casper Wasm contract."
+documentation = "https://docs.rs/cargo-casper"
+homepage.workspace = true
+repository.workspace = true
+license.workspace = true
+include = ["src/*", "Cargo.toml", "resources/*"]
+
+[dependencies]
+log.workspace = true
+
+[dev-dependencies]
+reqwest.workspace = true
+serde_json.workspace = true

@@ -44,7 +44,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: --locked
-          args: fmt -- --check
+          args: fmt --all -- --check
 
       - name: Audit
         uses: actions-rs/cargo@v1
@@ -56,10 +56,10 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: --locked
-          args: clippy --all-targets
+          args: clippy --workspace --all-targets -- -D warnings
 
       - name: Test
         uses: actions-rs/cargo@v1
         with:
           command: --locked
-          args: test
+          args: test --workspace

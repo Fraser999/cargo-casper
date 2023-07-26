@@ -1,7 +1,10 @@
+//! Tests for the `new` subcommand.
+
 use std::{env, fs, process::Output};
 
 use assert_cmd::Command;
 
+const SUBCOMMAND_NAME: &str = "new";
 const FAILURE_EXIT_CODE: i32 = 101;
 const SUCCESS_EXIT_CODE: i32 = 0;
 const TEST_PATH: &str = "test";
@@ -18,6 +21,7 @@ fn should_fail_when_target_path_already_exists() {
     let test_dir = tempfile::tempdir().unwrap().into_path();
     let output_error = Command::cargo_bin(env!("CARGO_PKG_NAME"))
         .unwrap()
+        .arg(SUBCOMMAND_NAME)
         .arg(&test_dir)
         .unwrap_err();
 
@@ -25,7 +29,7 @@ fn should_fail_when_target_path_already_exists() {
     assert_eq!(FAILURE_EXIT_CODE, exit_code);
 
     let stderr: String = String::from_utf8_lossy(&output_error.as_output().unwrap().stderr).into();
-    let expected_msg_fragment = format!(": destination '{}' already exists", test_dir.display());
+    let expected_msg_fragment = format!(": destination `{}` already exists", test_dir.display());
     assert!(stderr.contains(&expected_msg_fragment));
     assert!(stderr.contains("error"));
 
@@ -55,7 +59,7 @@ fn run_make_test_on_generated_project(maybe_git_branch_arg: Option<String>) {
     let subdir = TEST_PATH;
     let test_dir = temp_dir.join(subdir);
     let mut tool_cmd = Command::cargo_bin(env!("CARGO_PKG_NAME")).unwrap();
-    tool_cmd.arg(&test_dir);
+    tool_cmd.arg(SUBCOMMAND_NAME).arg(&test_dir);
     if let Some(git_branch_arg) = maybe_git_branch_arg {
         // Append '--git-url=...' and '--git-branch=...' args.
         tool_cmd.arg(GIT_URL_ARG);

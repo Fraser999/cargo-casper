@@ -1,10 +1,10 @@
-use crate::{common, ARGS};
+use super::{common, Error, Options};
 
 const FILENAME: &str = "rust-toolchain";
-const CONTENTS: &str = include_str!("../resources/rust-toolchain.in");
+const CONTENTS: &str = include_str!("../../../resources/rust-toolchain.in");
 
-pub fn create() {
-    common::write_file(ARGS.root_path().join(FILENAME), CONTENTS);
+pub fn create(options: &Options) -> Result<(), Error> {
+    common::write_file(options.root_path.join(FILENAME), CONTENTS)
 }
 
 #[cfg(test)]

@@ -17,8 +17,14 @@ jobs:
           toolchain: stable
           profile: minimal
 
-      - name: Crate Publish
+      - name: Publish Lib
         uses: actions-rs/cargo@v1
         with:
           command: --locked
-          args: publish --token ${{ secrets.crates_io_token }}
+          args: publish --package cargo-casper-lib --token ${{ secrets.crates_io_token }}
+
+      - name: Publish Bin
+        uses: actions-rs/cargo@v1
+        with:
+          command: --locked
+          args: publish --package cargo-casper --token ${{ secrets.crates_io_token }}
