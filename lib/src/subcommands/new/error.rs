@@ -15,14 +15,14 @@ pub enum Error {
         path: PathBuf,
     },
     /// Failed to create a directory at the given path.
-    FailedToCreateDir {
+    CreateDir {
         /// The underlying IO error.
         error: io::Error,
         /// The directory path.
         path: PathBuf,
     },
     /// Failed to write a file at the given path.
-    FailedToWriteFile {
+    WriteFile {
         /// The underlying IO error.
         error: io::Error,
         /// The file path.
@@ -36,14 +36,14 @@ impl Display for Error {
             Error::DestinationExists { path } => {
                 write!(formatter, "destination `{}` already exists", path.display())
             }
-            Error::FailedToCreateDir { error, path } => {
+            Error::CreateDir { error, path } => {
                 write!(
                     formatter,
                     "failed to create dir `{}`: {error}",
                     path.display()
                 )
             }
-            Error::FailedToWriteFile { error, path } => {
+            Error::WriteFile { error, path } => {
                 write!(
                     formatter,
                     "failed to write file `{}`: {error}",
@@ -58,9 +58,7 @@ impl StdError for Error {
     fn source(&self) -> Option<&(dyn StdError + 'static)> {
         match self {
             Error::DestinationExists { .. } => None,
-            Error::FailedToCreateDir { error, .. } | Error::FailedToWriteFile { error, .. } => {
-                Some(error)
-            }
+            Error::CreateDir { error, .. } | Error::WriteFile { error, .. } => Some(error),
         }
     }
 }

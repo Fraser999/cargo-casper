@@ -37,14 +37,14 @@ casper-types = {{ git = "{0}", branch = "{1}" }}
 }
 
 pub fn create_dir_all<P: AsRef<Path>>(path: P) -> Result<(), Error> {
-    fs::create_dir_all(path.as_ref()).map_err(|error| Error::FailedToCreateDir {
+    fs::create_dir_all(path.as_ref()).map_err(|error| Error::CreateDir {
         error,
         path: path.as_ref().to_path_buf(),
     })
 }
 
 pub fn write_file<P: AsRef<Path>, C: AsRef<[u8]>>(path: P, contents: C) -> Result<(), Error> {
-    fs::write(path.as_ref(), contents).map_err(|error| Error::FailedToWriteFile {
+    fs::write(path.as_ref(), contents).map_err(|error| Error::WriteFile {
         error,
         path: path.as_ref().to_path_buf(),
     })

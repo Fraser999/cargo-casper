@@ -27,18 +27,30 @@ test = false
 doc = false
 
 [workspace.dependencies]
+casper-types = { version = "*", features = ["std"] }
+directories = "5.0.1"
+log = "0.4.19"
 reqwest = { version = "0.11.18", features = ["blocking"] }
 serde_json = "1.0.103"
-log = "0.4.19"
+tempfile = "3.7.0"
+tokio = { version = "1.23.0", features = ["macros", "rt", "sync", "time"] }
 
 [dependencies]
 anyhow = "1.0.72"
 cargo-casper-lib = { version = "2.1.0", path = "lib" }
+casper-types.workspace = true
 clap = { version = "4.3.19", features = ["cargo", "deprecated", "wrap_help"] }
 colour = "0.7.0"
+directories.workspace = true
 log.workspace = true
 pretty_env_logger = "0.5.0"
+tokio.workspace = true
 
 [dev-dependencies]
 assert_cmd = "2.0.12"
-tempfile = "3.7.0"
+tempfile.workspace = true
+
+[patch.crates-io]
+casper-client = { git = "https://github.com/Fraser999/casper-client-rs", branch = "feat-track-node-2.0" }
+casper-execution-engine = { git = "https://github.com/Fraser999/casper-node", branch = "local-exec" }
+casper-types = { git = "https://github.com/Fraser999/casper-node", branch = "local-exec" }
